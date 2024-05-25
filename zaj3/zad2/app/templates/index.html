@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-details {
+            flex-grow: 1;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        a.button {
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        a.button:hover {
+            background-color: #0056b3;
+        }
+        a.button.delete {
+            background-color: #DC3545;
+        }
+        a.button.delete:hover {
+            background-color: #c82333;
+        }
+        .add-task {
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #28A745;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            max-width: 120px;
+        }
+        .add-task:hover {
+            background-color: #218838;
+        }
+        button.delete {
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #DC3545;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button.delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>TASKS</h1></center>
+    <a href="{{ url_for('add_task') }}" class="add-task">Add Task</a>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <div class="task-details">
+                {{task.id}} : {{ task.title }} - {{ task.context }}
+            </div>
+            <div class="button-container">
+                <a href="{{ url_for('edit_task', task_id=task.id) }}" class="button">Edit Task</a>
+                <button class="delete" onclick="deleteTask({{ task.id }})">Delete Task</button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <script type="text/javascript" src="{{ url_for('static', filename='delete_task.js') }}"></script>
+</body>
+</html>
